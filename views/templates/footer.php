@@ -29,10 +29,6 @@
                 });
             }
         });
-
-        <?php if (isset($extraScripts)): ?>
-            <?= $extraScripts ?>
-        <?php endif; ?>
     </script>
     </body>
 
