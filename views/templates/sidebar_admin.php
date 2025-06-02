@@ -20,7 +20,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?= $basePath ?>admin/financial.php"
+                        <a href="<?= $basePath ?>financial/financial_dashboard.php"
                             class="flex items-center px-4 py-3 <?= $activeMenu === 'financial' ? 'text-white bg-white/20' : 'text-white/80 hover:text-white hover:bg-white/10' ?> rounded-lg transition-all duration-200">
                             <i class="fas fa-money-bill-wave mr-3"></i>
                             Keuangan

@@ -1,33 +1,10 @@
 <?php
-// Start the session if not already started
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-// Include configuration file
-require_once($_SERVER['DOCUMENT_ROOT'] . '/UASWEBCOK/config/config.php');
-
-// Include the controllers
-require_once($_SERVER['DOCUMENT_ROOT'] . '/UASWEBCOK/controllers/adminControllers.php');
-
-// Check if user is logged in and is an admin
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: ../loginPage.php?error=unauthorized");
-    exit();
-}
-
-// Get dashboard data from controller
-$data = getDashboardData();
-
-// Set page title and active menu for templates
-$pageTitle = 'Admin Dashboard - Sistem Manajemen Qurban';
-$activeMenu = 'dashboard';
-
-// Include header template
+session_start();
+require_once('C:\laragon\www\UASWEBCOK\config\config.php');
 include_once('../templates/header.php');
-
-// Include sidebar template
 include_once('../templates/sidebar_admin.php');
+require_once('C:\laragon\www\UASWEBCOK\controllers\adminControllers.php');
+$data = getDashboardData();
 ?>
 
 <!-- Main content -->
@@ -39,9 +16,9 @@ include_once('../templates/sidebar_admin.php');
                 Admin Dashboard
             </h1>
             <p class="text-gray-600 mt-2">Panel kontrol dan ringkasan sistem manajemen qurban</p>
-        </div> <!-- Statistics Cards -->
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <!-- Users Statistics Card -->
+            <!-- iki card warga -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                 <div class="flex items-center mb-4">
                     <div class="bg-blue-100 p-3 rounded-full">
@@ -56,35 +33,27 @@ include_once('../templates/sidebar_admin.php');
                 <div class="space-y-3">
                     <div>
                         <div class="flex justify-between mb-1 text-sm">
-                            <span class="text-gray-600">Warga</span>
-                            <span class="text-blue-600 font-medium"><?= $data['user_stats']['warga'] - $data['user_stats']['berqurban'] - $data['user_stats']['panitia'] ?></span>
+                            <span class="text-gray-600 font-bold">Warga</span>
+                            <span class="text-gray-600 font-bold"><?= $data['user_stats']['warga'] - $data['user_stats']['berqurban'] - $data['user_stats']['panitia'] ?></span>
                         </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2">
-                            <div class="bg-blue-600 h-2 rounded-full" style="width: <?= ($data['user_stats']['warga'] > 0) ? (($data['user_stats']['warga'] - $data['user_stats']['berqurban'] - $data['user_stats']['panitia']) / $data['user_stats']['warga']) * 100 : 0 ?>%"></div>
+
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1 text-sm">
+                            <span class="text-green-600 font-bold">Berqurban</span>
+                            <span class="text-green-600 font-bold"><?= $data['user_stats']['berqurban'] ?? 0 ?></span>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-1 text-sm">
-                            <span class="text-gray-600">Berqurban</span>
-                            <span class="text-green-600 font-medium"><?= $data['user_stats']['berqurban'] ?? 0 ?></span>
-                        </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2">
-                            <div class="bg-green-600 h-2 rounded-full" style="width: <?= ($data['user_stats']['warga'] > 0) ? (($data['user_stats']['berqurban'] ?? 0) / $data['user_stats']['warga']) * 100 : 0 ?>%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-1 text-sm">
-                            <span class="text-gray-600">Panitia</span>
-                            <span class="text-purple-600 font-medium"><?= $data['user_stats']['panitia'] ?? 0 ?></span>
-                        </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2">
-                            <div class="bg-purple-600 h-2 rounded-full" style="width: <?= ($data['user_stats']['warga'] > 0) ? (($data['user_stats']['panitia'] ?? 0) / $data['user_stats']['warga']) * 100 : 0 ?>%"></div>
+                            <span class="text-blue-600 font-bold">Panitia</span>
+                            <span class="text-purple-600 font-bold"><?= $data['user_stats']['panitia'] ?? 0 ?></span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Meat Distribution Card -->
+            <!-- iki Card daging -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                 <div class="flex items-center mb-4">
                     <div class="bg-red-100 p-3 rounded-full">
@@ -99,43 +68,22 @@ include_once('../templates/sidebar_admin.php');
                 <div class="space-y-3">
                     <div>
                         <div class="flex justify-between mb-1 text-sm">
-                            <span class="text-gray-600">Daging Sapi</span>
-                            <span class="text-red-600 font-medium"><?= $data['meat_distribution']['beef'] ?? 0 ?> kg</span>
+                            <span class="text-red-600 font-bold">Daging Sapi</span>
+                            <span class="text-red-600 font-bold"><?= $data['meat_distribution']['beef'] ?? 0 ?> kg</span>
                         </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2">
-                            <div class="bg-red-500 h-2 rounded-full" style="width: <?= ($data['meat_distribution']['beef'] + $data['meat_distribution']['goat'] > 0) ? (($data['meat_distribution']['beef'] ?? 0) / ($data['meat_distribution']['beef'] + $data['meat_distribution']['goat'])) * 100 : 0 ?>%"></div>
-                        </div>
+
                     </div>
                     <div>
                         <div class="flex justify-between mb-1 text-sm">
-                            <span class="text-gray-600">Daging Kambing</span>
-                            <span class="text-blue-600 font-medium"><?= $data['meat_distribution']['goat'] ?? 0 ?> kg</span>
-                        </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2">
-                            <div class="bg-blue-500 h-2 rounded-full" style="width: <?= ($data['meat_distribution']['beef'] + $data['meat_distribution']['goat'] > 0) ? (($data['meat_distribution']['goat'] ?? 0) / ($data['meat_distribution']['beef'] + $data['meat_distribution']['goat'])) * 100 : 0 ?>%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-1 text-sm">
-                            <span class="text-gray-600">Status Pengambilan</span>
-                            <span class="text-green-600 font-medium"><?= ($data['meat_distribution']['status']['picked_up'] ?? 0) ?>/<?= ($data['meat_distribution']['status']['picked_up'] ?? 0) + ($data['meat_distribution']['status']['pending'] ?? 0) ?></span>
-                        </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2">
-                            <div class="bg-green-500 h-2 rounded-full" style="width: <?= (($data['meat_distribution']['status']['picked_up'] ?? 0) + ($data['meat_distribution']['status']['pending'] ?? 0) > 0) ? (($data['meat_distribution']['status']['picked_up'] ?? 0) / (($data['meat_distribution']['status']['picked_up'] ?? 0) + ($data['meat_distribution']['status']['pending'] ?? 0))) * 100 : 0 ?>%"></div>
+                            <span class="text-blue-600 font-bold">Daging Kambing</span>
+                            <span class="text-blue-600 font-bold"><?= $data['meat_distribution']['goat'] ?? 0 ?> kg</span>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
 
         <!-- Quick Actions -->
-        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-            <i class="fas fa-bolt mr-3 text-yellow-500"></i>
-            Aksi Cepat
-        </h2>
-
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <!-- Verify Meat Pickup -->
             <a href="qr_scanner.php" class="bg-white rounded-xl p-4 border border-gray-200 shadow-sm flex items-center hover:shadow-md transition-all duration-200">
