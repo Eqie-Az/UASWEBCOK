@@ -58,7 +58,6 @@ function getFinancialSummary()
         $expenses = $row['total'] ?: 0;
     }
 
-    // Calculate balance
     $balance = $income - $expenses;
 
     return [
@@ -73,7 +72,6 @@ function getMeatDistribution()
 {
     global $koneksi;
 
-    // Get total meat distributed
     $sqlTotal = "SELECT SUM(total_daging) AS total FROM meat_distribution";
     $totalResult = mysqli_query($koneksi, $sqlTotal);
     $total = 0;
@@ -81,7 +79,6 @@ function getMeatDistribution()
         $total = $row['total'] ?: 0;
     }
 
-    // Get beef distribution
     $sqlBeef = "SELECT SUM(daging_sapi) AS total FROM meat_distribution";
     $beefResult = mysqli_query($koneksi, $sqlBeef);
     $beef = 0;
@@ -89,7 +86,6 @@ function getMeatDistribution()
         $beef = $row['total'] ?: 0;
     }
 
-    // Get goat distribution
     $sqlGoat = "SELECT SUM(daging_kambing) AS total FROM meat_distribution";
     $goatResult = mysqli_query($koneksi, $sqlGoat);
     $goat = 0;

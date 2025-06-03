@@ -13,7 +13,7 @@
 
                 <ul class="space-y-2">
                     <li>
-                        <a href="<?= $basePath ?>admin/admin_dashboard.php"
+                        <a href="../admin/admin_dashboard.php"
                             class="flex items-center px-4 py-3 <?= $activeMenu === 'dashboard' ? 'text-white bg-white/20' : 'text-white/80 hover:text-white hover:bg-white/10' ?> rounded-lg transition-all duration-200">
                             <i class="fas fa-tachometer-alt mr-3"></i>
                             Dashboard
@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?= $basePath ?>admin/users.php"
+                        <a href="<?= $basePath ?>pengguna/user_dashboard.php"
                             class="flex items-center px-4 py-3 <?= $activeMenu === 'users' ? 'text-white bg-white/20' : 'text-white/80 hover:text-white hover:bg-white/10' ?> rounded-lg transition-all duration-200">
                             <i class="fas fa-users mr-3"></i>
                             Manajemen Pengguna
