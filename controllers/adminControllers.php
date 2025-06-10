@@ -72,21 +72,24 @@ function getMeatDistribution()
 {
     global $koneksi;
 
-    $sqlTotal = "SELECT SUM(total_daging) AS total FROM meat_distribution";
+    $sqlTotal = "SELECT 
+    SUM(total_daging_kambing + total_daging_sapi) AS total 
+FROM meat_allocation;
+";
     $totalResult = mysqli_query($koneksi, $sqlTotal);
     $total = 0;
     if ($totalResult && $row = mysqli_fetch_assoc($totalResult)) {
         $total = $row['total'] ?: 0;
     }
 
-    $sqlBeef = "SELECT SUM(daging_sapi) AS total FROM meat_distribution";
+    $sqlBeef = "SELECT AVG(total_daging_sapi) AS total FROM meat_allocation";
     $beefResult = mysqli_query($koneksi, $sqlBeef);
     $beef = 0;
     if ($beefResult && $row = mysqli_fetch_assoc($beefResult)) {
         $beef = $row['total'] ?: 0;
     }
 
-    $sqlGoat = "SELECT SUM(daging_kambing) AS total FROM meat_distribution";
+    $sqlGoat = "SELECT AVG(total_daging_kambing) AS total FROM meat_allocation";
     $goatResult = mysqli_query($koneksi, $sqlGoat);
     $goat = 0;
     if ($goatResult && $row = mysqli_fetch_assoc($goatResult)) {

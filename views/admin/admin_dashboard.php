@@ -61,7 +61,7 @@ $data = getDashboardData();
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-600">Distribusi Daging</p>
-                        <p class="text-xl font-bold text-red-600"><?= ($data['meat_distribution']['beef'] + $data['meat_distribution']['goat']) ?? 0 ?> kg</p>
+                        <p class="text-xl font-bold text-red-600"><?= number_format(($data['meat_distribution']['beef'] + $data['meat_distribution']['goat']) ?? 0, 0)  ?> kg</p>
                     </div>
                 </div>
 
@@ -69,14 +69,14 @@ $data = getDashboardData();
                     <div>
                         <div class="flex justify-between mb-1 text-sm">
                             <span class="text-red-600 font-bold">Daging Sapi</span>
-                            <span class="text-red-600 font-bold"><?= $data['meat_distribution']['beef'] ?? 0 ?> kg</span>
+                            <span class="text-red-600 font-bold"><?= number_format($data['meat_distribution']['beef'] ?? 0) ?> kg</span>
                         </div>
 
                     </div>
                     <div>
                         <div class="flex justify-between mb-1 text-sm">
                             <span class="text-blue-600 font-bold">Daging Kambing</span>
-                            <span class="text-blue-600 font-bold"><?= $data['meat_distribution']['goat'] ?? 0 ?> kg</span>
+                            <span class="text-blue-600 font-bold"><?= number_format($data['meat_distribution']['goat'] ?? 0) ?> kg</span>
                         </div>
                     </div>
                 </div>
