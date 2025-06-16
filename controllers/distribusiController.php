@@ -3,8 +3,6 @@ require_once('C:\laragon\www\UASWEBCOK\config\database.php');
 if (!$koneksi) {
     die("Database connection failed: " . mysqli_connect_error());
 }
-
-
 function getDistribusiData()
 {
     global $koneksi;
@@ -47,39 +45,27 @@ function verifiedDistribusi($distributionId)
 {
     global $koneksi;
 
-    // Validate input
     $distributionId = intval($distributionId);
     if ($distributionId <= 0) {
         return false;
     }
-
-    // Use prepared statement to prevent SQL injection
     $stmt = mysqli_prepare($koneksi, "UPDATE meat_distribution SET status = 'sudah_diambil', pickup_date = NOW() WHERE distribution_id = ?");
 
     if (!$stmt) {
         return false;
     }
 
-    // Bind parameters
     mysqli_stmt_bind_param($stmt, "i", $distributionId);
-
-    // Execute the statement
     $success = mysqli_stmt_execute($stmt);
 
-    // Get affected rows
     $affectedRows = mysqli_stmt_affected_rows($stmt);
 
-    // Close statement
     mysqli_stmt_close($stmt);
 
-    // Return true if update was successful and affected at least one row
     return $success && $affectedRows > 0;
 }
 
-/**
- * Get summary statistics for distribution data
- * @return array Statistics about distributions
- */
+
 function getDistribusiStats()
 {
     global $koneksi;
@@ -106,11 +92,6 @@ function getDistribusiStats()
     return $stats;
 }
 
-/**
- * Get individual distribution by ID
- * @param int $id Distribution ID
- * @return array|null Distribution data or null if not found
- */
 function getDistribusiById($id)
 {
     global $koneksi;

@@ -1,9 +1,20 @@
 <?php
+session_start();
 require_once 'C:\laragon\www\UASWEBCOK\config\database.php';
 require_once 'C:\laragon\www\UASWEBCOK\config\config.php';
 include_once '../templates/header.php';
-include_once '../templates/sidebar_admin.php';
-require_once 'C:\laragon\www\UASWEBCOK\controllers\distribusiController.php';
+require_once 'C:\laragon\www\UASWEBCOK\controllers/distribusiController.php';
+
+// Load the appropriate sidebar based on user role
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'panitia') {
+    include_once '../templates/sidebar_panitia.php';
+    require_once 'C:\laragon\www\UASWEBCOK\controllers\panitiaControllers.php';
+    $distribusiData = getPanitiaDistribusiData();
+} else {
+    include_once '../templates/sidebar_admin.php';
+    require_once 'C:\laragon\www\UASWEBCOK\controllers\distribusiController.php';
+    $distribusiData = getDistribusiData();
+}
 
 if (!$koneksi) {
     die("Database connection failed: " . mysqli_connect_error());

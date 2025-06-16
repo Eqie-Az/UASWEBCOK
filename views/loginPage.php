@@ -42,17 +42,17 @@
 
                 <form method="POST" class="space-y-6" action="../controllers/loginControllers.php">
                     <div>
-                        <label for="username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                        <label for="nik" class="block text-sm font-medium text-gray-700 mb-2">NIK</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="fas fa-user text-gray-400"></i>
                             </div>
                             <input type="text"
-                                id="username"
-                                name="username"
+                                id="nik"
+                                name="nik"
                                 required
                                 class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder="Masukkan username">
+                                placeholder="Masukkan NIK">
                         </div>
                     </div>
 

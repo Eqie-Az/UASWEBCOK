@@ -8,14 +8,11 @@ if (!$koneksi) {
     die("Koneksi database gagal: " . mysqli_connect_error());
 }
 
-// Process all dashboard data and form submissions through the controller
 $dashboardData = processDashboardData();
 extract($dashboardData);
 
 
 ?>
-
-<!-- Main Content - Full Width -->
 <div class="w-full p-4">
     <!-- Warga Allocations Table -->
     <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-5">
