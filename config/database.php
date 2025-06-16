@@ -1,7 +1,7 @@
 <?php
 $host = 'localhost';
 $dbname = 'qurban_mvc';
-$username = 'root';
+$username = 'Root';
 $password = '';
 $koneksi = mysqli_connect($host, $username, $password, $dbname);
 if (!$koneksi) {

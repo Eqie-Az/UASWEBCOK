@@ -26,7 +26,7 @@ function getUserCountByRole($role)
     global $koneksi;
     $role = mysqli_real_escape_string($koneksi, $role);
 
-    $sql = "SELECT COUNT(*) AS total FROM users WHERE role = '$role'";
+    $sql = "SELECT COUNT(*) AS total FROM warga WHERE role = '$role'";
     $result = mysqli_query($koneksi, $sql);
 
     if ($result) {

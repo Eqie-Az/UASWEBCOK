@@ -11,9 +11,9 @@ $password = $_POST['password'];
 
 // Join with warga table to get nama_lengkap
 $sql = "SELECT u.*, w.nama_lengkap 
-        FROM users u 
+        FROM warga u 
         LEFT JOIN warga w ON u.warga_id = w.warga_id 
-        WHERE u.username = '$username'";
+        WHERE u.nik = '$username'";
 $result = mysqli_query($koneksi, $sql);
 
 if (mysqli_num_rows($result) > 0) {

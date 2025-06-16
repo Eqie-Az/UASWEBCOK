@@ -54,7 +54,7 @@ require_once('C:\laragon\www\UASWEBCOK\config\config.php');
         </ul>
 
         <div class="mt-8 pt-4 border-t border-white/20">
-            <a href="<?= $basePath ?>controllers/logout.php"
+            <a href="<?= $basePath ?>/../../controllers/logoutControllers.php"
                 class="flex items-center p-2 text-red-200 hover:text-red-100 hover:bg-red-500/20 rounded-lg transition-all duration-200">
                 <i class="fas fa-sign-out-alt w-5 h-5 transition duration-75"></i>
                 <span class="ms-3 sidebar-text">Logout</span>
