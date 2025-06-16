@@ -21,8 +21,8 @@ if (mysqli_num_rows($result) > 0) {
 
     if ($password === $user['password']) {
         session_start();
-        $_SESSION['user_id'] = $user['user_id'];
-        $_SESSION['username'] = $user['username'];
+        $_SESSION['nik'] = $user['nik'];
+        $_SESSION['alamat'] = $user['alamat'];
         $_SESSION['role'] = $user['role'];
         $_SESSION['warga_id'] = $user['warga_id'];
         $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
@@ -35,10 +35,10 @@ if (mysqli_num_rows($result) > 0) {
                 header("Location: ../views/panitia_dashboard.php");
                 break;
             case 'berqurban':
-                header("Location: ../views/berqurban_dashboard.php");
+                header("Location: ../views/berqurban/berqurban_dashboard.php");
                 break;
             case 'warga':
-                header("Location: ../views/warga_dashboard.php");
+                header("Location: ../views/warga/warga_dashboard.php");
                 break;
             default:
                 echo "Invalid role: '" . $role . "'";
