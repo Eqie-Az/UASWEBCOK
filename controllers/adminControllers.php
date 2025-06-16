@@ -9,7 +9,7 @@ if (!$koneksi) {
 function getAllWarga()
 {
     global $koneksi;
-    $sql = "SELECT COUNT(*) AS total FROM warga";
+    $sql = "SELECT COUNT(*) AS total FROM warga WHERE role != 'admin'";
     $result = mysqli_query($koneksi, $sql);
 
     if ($result) {
@@ -26,7 +26,7 @@ function getUserCountByRole($role)
     global $koneksi;
     $role = mysqli_real_escape_string($koneksi, $role);
 
-    $sql = "SELECT COUNT(*) AS total FROM users WHERE role = '$role'";
+    $sql = "SELECT COUNT(*) AS total FROM warga WHERE role = '$role'";
     $result = mysqli_query($koneksi, $sql);
 
     if ($result) {
@@ -49,7 +49,6 @@ function getFinancialSummary()
         $row = mysqli_fetch_assoc($incomeResult);
         $income = $row['total'] ?: 0;
     }
-
     $sqlExpense = "SELECT SUM(amount) AS total FROM financial_transactions WHERE transaction_type = 'pengeluaran'";
     $expenseResult = mysqli_query($koneksi, $sqlExpense);
     $expenses = 0;
@@ -74,26 +73,36 @@ function getMeatDistribution()
 
     $sqlTotal = "SELECT 
     SUM(total_daging_kambing + total_daging_sapi) AS total 
-FROM meat_allocation;
-";
+FROM meat_allocation;";
     $totalResult = mysqli_query($koneksi, $sqlTotal);
     $total = 0;
-    if ($totalResult && $row = mysqli_fetch_assoc($totalResult)) {
-        $total = $row['total'] ?: 0;
+    if ($totalResult) {
+        $row = mysqli_fetch_assoc($totalResult);
+        if ($row) {
+            $total = $row['total'] ?: 0;
+        }
     }
 
     $sqlBeef = "SELECT AVG(total_daging_sapi) AS total FROM meat_allocation";
     $beefResult = mysqli_query($koneksi, $sqlBeef);
     $beef = 0;
-    if ($beefResult && $row = mysqli_fetch_assoc($beefResult)) {
-        $beef = $row['total'] ?: 0;
+
+    if($beefResult){
+        $row = mysqli_fetch_assoc($beefResult);
+        if ($row) {
+            $beef = $row['total'] ?: 0;
+        }
     }
 
     $sqlGoat = "SELECT AVG(total_daging_kambing) AS total FROM meat_allocation";
     $goatResult = mysqli_query($koneksi, $sqlGoat);
     $goat = 0;
-    if ($goatResult && $row = mysqli_fetch_assoc($goatResult)) {
-        $goat = $row['total'] ?: 0;
+
+    if($goatResult){
+        $row = mysqli_fetch_assoc($goatResult);
+        if ($row) {
+            $goat = $row['total'] ?: 0;
+        }
     }
 
 

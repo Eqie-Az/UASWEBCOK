@@ -93,7 +93,7 @@ function insertRole($warga_id, $role, $sapi_amount, $kambing_amount)
 function getUserCountByRole($role)
 {
     global $koneksi;
-    $sql = "SELECT COUNT(*) AS total FROM users WHERE role = '$role'";
+    $sql = "SELECT COUNT(*) AS total FROM warga WHERE role = '$role'";
     $result = mysqli_query($koneksi, $sql);
 
     if ($result) {
